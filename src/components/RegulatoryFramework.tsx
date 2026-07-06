@@ -51,8 +51,8 @@ export default function RegulatoryFramework() {
 
             <rect x="400" y="20" width="220" height="120" rx="8" fill="#0a1628" stroke="#00ff88" strokeWidth="1.5" />
             <text x="510" y="55" textAnchor="middle" fill="#00ff88" fontSize="13" fontWeight="600">기술적 구현</text>
-            <text x="510" y="75" textAnchor="middle" fill="#8ba3c7" fontSize="10">물리적 전송</text>
-            <text x="510" y="95" textAnchor="middle" fill="#5a7090" fontSize="9">근거리·원거리·위성망</text>
+            <text x="510" y="75" textAnchor="middle" fill="#8ba3c7" fontSize="10">전송 경로</text>
+            <text x="510" y="95" textAnchor="middle" fill="#5a7090" fontSize="9">기지국→운영국 / 위성→지상국</text>
 
             <line x1="190" y1="140" x2="350" y2="185" stroke="#ffffff30" strokeWidth="1.5" />
             <line x1="510" y1="140" x2="350" y2="185" stroke="#ffffff30" strokeWidth="1.5" />

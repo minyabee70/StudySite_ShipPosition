@@ -39,6 +39,77 @@ export type JourneyPath = {
   description: string
 }
 
+export type JourneyStepOverride = Pick<JourneyStep, 'title' | 'subtitle' | 'description' | 'detail'>
+
+export const journeyPathStepOverrides: Record<
+  JourneyPath['id'],
+  Partial<Record<number, JourneyStepOverride>>
+> = {
+  vhf: {
+    2: {
+      title: '기지국 수신',
+      subtitle: '해안·육상 기지국 포착',
+      description:
+        'VHF/AIS 전파를 해안 수신 기지국·AIS 수신망이 직접 포착합니다. 위성을 거치지 않으며, 연안 다수 기지국에서 신호가 동시에 수집됩니다.',
+      detail: '한국 해안에는 AIS 지상 수신 네트워크가 구축되어 있고, V-Pass는 이동통신·전용 기지국으로 수신됩니다.',
+    },
+    3: {
+      title: '운영국 집계',
+      subtitle: '국가 관할 기관으로 데이터 수집',
+      description:
+        '기지국에서 수집된 데이터가 운영국(해양경찰·해양수산부·해상교통관제센터 등)으로 전달·집계됩니다. AIS 신호 충돌 분리·해독도 이 단계에서 수행됩니다.',
+    },
+    4: {
+      title: '관제 서버',
+      subtitle: '국가 관제 시스템 표출',
+      description:
+        '운영국 소속 관제 서버에 위치가 적재되어 해상 교통관제·어업 단속·출입항 관리 화면에 표출됩니다.',
+    },
+  },
+  hf: {
+    2: {
+      title: '해안 무선국(기지국) 수신',
+      subtitle: '전리층 반사 신호 포착',
+      description:
+        'HF/MF SSB 신호를 해안 무선국·기지국이 수신합니다. 위성 없이 지상 안테나만으로 수천 km 밖 선박과 통신합니다.',
+      detail: 'GMDSS 해안 무선국이 조난 호출·안전 정보를 수신하고, 위치 정보가 포함된 경우 운영국으로 전달됩니다.',
+    },
+    3: {
+      title: '운영국 집계',
+      subtitle: '해경·교통관제 등으로 정보 전달',
+      description:
+        '기지국에서 접수된 통신·위치 정보가 운영국(해상구조조정센터·해경·관제 기관)으로 모입니다.',
+    },
+    4: {
+      title: '관제 서버',
+      subtitle: '조난·안전 정보 통합 관리',
+      description:
+        '운영국 관제 서버에 사건·위치 정보가 기록되고, 대응·의사결정에 활용됩니다.',
+    },
+  },
+  satellite: {
+    2: {
+      title: '인공위성 중계',
+      subtitle: 'LEO vs GEO 위성 포착',
+      description:
+        'LEO(Orbcomm/VMS) 또는 GEO(Inmarsat/LRIT/SSAS) 위성이 신호를 수신·중계합니다. 근거리·원거리망과 달리 반드시 위성을 경유합니다.',
+      detail: 'LEO: 500~1,200km, 거의 실시간. GEO: 36,000km, 3기로 지구 커버, 수백 ms 지연.',
+    },
+    3: {
+      title: '지상 게이트웨이 (Land Earth Station)',
+      subtitle: '위성 신호 지상 수신',
+      description:
+        '위성이 내려보낸 신호를 지상 게이트웨이(거대 포물선 안테나)가 수신합니다. 암호화 데이터 복호화·검증 후 운영국으로 전달됩니다.',
+    },
+    4: {
+      title: '관제 서버',
+      subtitle: '기국·정부 DC에 위치 적재',
+      description:
+        'LRIT Data Centre, VMS 서버, 해경 SSAS 수신 센터 등 운영국 관제 서버에 위치가 표출됩니다.',
+    },
+  },
+}
+
 export type TimelineItem = {
   id: number
   title: string
@@ -143,12 +214,12 @@ export const regulatoryPillars: RegulatoryPillar[] = [
     id: 'technical',
     title: '물리적 / 기술적 구현',
     description:
-      '법적 의무는 GPS/GNSS로 위치를 획득한 뒤, 근거리망·원거리망·위성망 중 하나(또는 복수)로 전송되어 지상/위성 게이트웨이를 거쳐 국가 관제 서버에 도달합니다. 법은 같아도 전송 경로가 다르면 관제 주체·실시간성·보안성이 달라집니다.',
+      '법적 의무는 GPS/GNSS로 위치를 획득한 뒤 전송됩니다. 근거리·원거리망은 위성을 거치지 않고 기지국 → 운영국 → 관제 서버로 모이고, 위성망만 위성·지상 게이트웨이를 경유합니다.',
     items: [
       '위치 획득: GPS·GLONASS·Galileo 등 GNSS 수신',
-      '근거리 전송: VHF/AIS, V-Pass — 수십 km 이내',
-      '원거리 전송: HF/MF SSB — 수천 km (GMDSS)',
-      '위성 전송: LEO·GEO 위성 — 전 지구적 커버리지',
+      '근거리: 선박 → 기지국(해안 수신국) → 운영국 → 관제 서버',
+      '원거리: 선박 → 해안 무선국(기지국) → 운영국 → 관제 서버',
+      '위성: 선박 → 인공위성 → 지상 게이트웨이 → 운영국/관제 서버',
     ],
   },
 ]
@@ -301,7 +372,7 @@ export const techNetworkTiers: TechNetworkTier[] = [
     equipment: ['AIS', 'V-Pass', 'VHF/DSC', '레이더'],
     analogy: '마을 안에서 들리는 확성기 방송과 같습니다. 가까운 거리에서만 효과적입니다.',
     mechanism:
-      'VHF 대역(156~174MHz) 전파가 직선 전파되며, 지평선 너머로는 신호가 약해집니다. AIS는 자동으로 위치를 방송하고, VHF/DSC는 음성·디지털 조난 호출에 사용됩니다.',
+      'VHF 대역 전파가 직선 전파되어 해안·육상 기지국(수신국)이 포착합니다. 위성을 거치지 않고 기지국에서 운영국(관할 국가 기관)으로 데이터가 모인 뒤 관제 서버에 적재됩니다. AIS·V-Pass·VHF/DSC가 대표적입니다.',
     limitations:
       '지평선 제한(안테나 높이에 따라 20~50km), 신호 혼잡(AIS 충돌), 레이더는 능동 탐지(선박이 자발적으로 위치를 보내지 않음)',
     legalLink: 'SOLAS Reg.19(AIS), 한국 연안어선 V-Pass 의무, GMDSS VHF 요건',
@@ -313,7 +384,7 @@ export const techNetworkTiers: TechNetworkTier[] = [
     equipment: ['HF/MF SSB'],
     analogy: '전 세계 바다에서 들리는 장거리 무전기와 같습니다. 하늘(전리층)을 거울 삼아 신호를 반사합니다.',
     mechanism:
-      'HF(3~30MHz)·MF 대역의 SSB(Single Side Band) 무선으로 음성·텍스트·DSC 조난 신호를 전송합니다. GMDSS(Global Maritime Distress and Safety System)의 핵심 구성 요소입니다.',
+      'HF(3~30MHz)·MF 대역 SSB 무선이 전리층을 반사해 수천 km 전달됩니다. 해안 무선국·기지국이 수신한 뒤 운영국(해경·해상교통관제 등)으로 전달되고, 관제 서버에 통합됩니다. 위성 경유 없이 지상망만 사용합니다.',
     limitations:
       '전리층 상태에 따른 주야간 전파 특성 변화, 자동 위치 보고보다 음성·텍스트 통신 중심, 안테나·조작 기술 필요',
     legalLink: 'SOLAS Ch.IV (GMDSS), ITU 무선 규정, A1~A4 해역별 장비 요건',
@@ -325,7 +396,7 @@ export const techNetworkTiers: TechNetworkTier[] = [
     equipment: ['LRIT', 'VMS', 'SSAS', '위성 통신 단말기'],
     analogy: '우주에 있는 중계탑에게만 속삭이거나, 정해진 관제소에만 일기를 보내는 것과 같습니다.',
     mechanism:
-      'LEO(저궤도, 500~1,200km): Orbcomm 등 — VMS에 사용, 거의 실시간. GEO(정지궤도, 36,000km): Inmarsat — LRIT·SSAS·FleetBroadband, 3기로 지구 대부분 커버, 수백 ms 지연.',
+      'LEO·GEO 인공위성이 중계하는 유일한 경로입니다. 선박 → 위성 → 지상 게이트웨이(Land Earth Station)를 거쳐 운영국·관제 서버로 전달됩니다. LRIT·VMS·SSAS·상용 위성 단말기가 이 경로를 사용합니다.',
     limitations: '위성 이용료 비용, 날씨·지형에 따른 신호 약화(일부), 안테나 방향 유지 필요(GEO)',
     legalLink: 'SOLAS(LRIT·SSAS), 수산업법(VMS), ISPS Code(SSAS)',
   },
@@ -339,7 +410,7 @@ export const policyTiers: PolicyTier[] = [
     nature: '누구나 수신 가능한 공개 방송 (Broadcast)',
     purpose: '선박 간 충돌 예방, 해상 교통 상황 인식',
     legalBasis: 'IMO SOLAS Regulation 19 — 300GT 이상 국제항해 선박, 여객선 등 의무',
-    receivers: '타 선박, 해안국, AIS 수신 위성, 일반 수신기 보유자',
+    receivers: '타 선박, 해안 기지국, AIS 지상 수신망 (보조: 위성 AIS)',
     caseExample: '싱가포르 해협에서 AIS 데이터로 실시간 해상 교통량을 공개하는 MarineTraffic 같은 서비스',
   },
   {
@@ -386,7 +457,7 @@ export const equipmentList: Equipment[] = [
       { icon: 'direction', label: '통신 방향', value: '선박 → 사방 (브로드캐스트)' },
       { icon: 'cost', label: '비용', value: '낮음 (상대적으로 저렴)' },
       { icon: 'security', label: '보안성', value: '공개 (누구나 수신 가능)' },
-      { icon: 'receiver', label: '수신자', value: '타 선박·해안국·위성' },
+      { icon: 'receiver', label: '수신자', value: '타 선박·해안 기지국' },
     ],
   },
   {
@@ -523,17 +594,20 @@ export const journeyPaths: JourneyPath[] = [
   {
     id: 'vhf',
     label: '근거리 (VHF/AIS)',
-    description: 'VHF 대역으로 해안국·주변 선박이 직접 수신. 지평선 이내 20~50km. AIS는 자동 위치 방송.',
+    description:
+      '위성 없이 해안·육상 기지국이 직접 수신 → 운영국으로 집계 → 관제 서버. AIS·V-Pass·VHF/DSC 경로입니다.',
   },
   {
     id: 'hf',
     label: '원거리 (HF/SSB)',
-    description: 'HF/MF 대역이 전리층을 반사하여 수천 km 전파. GMDSS 조난 통신. 자동 위치 보고는 부차적.',
+    description:
+      '위성 없이 해안 무선국(기지국)이 HF/MF 신호 수신 → 운영국(해경·구조조정) → 관제 서버. GMDSS 경로입니다.',
   },
   {
     id: 'satellite',
     label: '위성 (LEO/GEO)',
-    description: 'LEO(Orbcomm/VMS)는 저지연·전지구, GEO(Inmarsat/LRIT)는 3기로 커버·수백ms 지연.',
+    description:
+      '선박 → 인공위성 → 지상 게이트웨이 → 운영국/관제 서버. LRIT·VMS·SSAS·상용 위성 단말기만 이 경로를 사용합니다.',
   },
 ]
 
@@ -549,21 +623,19 @@ export const journeySteps: JourneyStep[] = [
   },
   {
     id: 2,
-    title: '신호 전달 (매체)',
-    subtitle: '직접 전파 / 전리층 반사 / 위성 중계',
+    title: '중간 수신·전달',
+    subtitle: '기지국 또는 위성 경유',
     description:
-      '근거리망은 직선 전파로 해안국·주변 선박이 직접 수신합니다. 원거리망은 전리층 반사로 수천 km 전달됩니다. 위성망은 LEO 또는 GEO 위성이 중계합니다.',
+      '근거리·원거리망은 기지국(해안 수신국·무선국)을 거치고, 위성망만 인공위성을 경유합니다. 이 단계에서 전송 매체가 결정됩니다.',
     detail:
-      'LEO (500~1,200km): VMS·Orbcomm, 거의 실시간. GEO (36,000km): LRIT·SSAS·Inmarsat, 3기로 지구 커버, 수백 ms 지연. 근거리 AIS는 위성 중계 없이 해안 수신국이 직접 포착하기도 합니다.',
+      '근거리/원거리: 선박 → 기지국 → 운영국. 위성: 선박 → 위성 → 지상 게이트웨이. 경로별 상세는 위 탭을 선택해 확인하세요.',
   },
   {
     id: 3,
-    title: '지상 수신국 (Gateway)',
-    subtitle: '안테나 수신 & 신호 처리',
+    title: '운영국 / 지상 게이트웨이',
+    subtitle: '국가 관할 기관 또는 위성 지상국',
     description:
-      '위성·해안 안테나가 신호를 수신합니다. AIS는 수천 척의 신호가 혼잡하여 디지털 분리·해독이 필요하고, 위성 단말기·LRIT는 암호화 데이터를 복호화·검증합니다.',
-    detail:
-      '한국 해안에는 AIS 수신 네트워크가 구축되어 있으며, 위성 게이트웨이는 Inmarsat Land Earth Station 등이 담당합니다. V-Pass는 이동통신·전용 기지국으로 수신합니다.',
+      '기지국·게이트웨이에서 넘어온 데이터가 운영국(관할 정부 기관)으로 집계됩니다. 신호 분리·해독·검증이 이 단계에서 이루어집니다.',
   },
   {
     id: 4,
@@ -703,7 +775,7 @@ export const surveillanceConclusion = {
 export const footerContent = {
   summary: [
     '국가 관제는 [법적 근거]와 [기술적 구현] 두 축으로 이해해야 합니다 — 선박 종류·법적 지위에 따라 의무 장비가 달라집니다.',
-    '통신망은 근거리(AIS·V-Pass·VHF), 원거리(HF/SSB), 위성(LRIT·VMS·SSAS)으로 분류됩니다.',
+    '통신망은 근거리·원거리(기지국→운영국→관제서버)와 위성(위성→지상국→관제서버)으로 구분됩니다.',
     '운영 목적에 따라 공개 관제(AIS), 비공개 관제(위성단말기), 강제 관제(LRIT·VMS·SSAS·V-Pass)로 나뉩니다.',
     '한 척의 선박이 여러 분류·장비를 동시에 사용할 수 있으며, 이것이 현대 해상 관제의 복잡성입니다.',
     '의무 장비를 끈 불법 선박(Dark Vessel)은 SAR·광학 위성으로 교차 탐지됩니다.',

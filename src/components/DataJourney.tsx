@@ -1,38 +1,65 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 
-import { journeySteps, journeyPaths } from '../data/content'
+import { journeySteps, journeyPaths, journeyPathStepOverrides } from '../data/content'
 import type { JourneyPath } from '../data/content'
 
-const nodes = [
+type DiagramNode = { id: string; label: string; cx: number; cy: number }
+type DiagramLink = { from: string; to: string; steps: number[] }
+
+const groundNodes: DiagramNode[] = [
   { id: 'ship', label: '선박', cx: 60, cy: 140 },
-  { id: 'satellite', label: '위성/매체', cx: 200, cy: 60 },
-  { id: 'gateway', label: '지상국', cx: 340, cy: 140 },
-  { id: 'server', label: '관제 서버', cx: 480, cy: 140 },
+  { id: 'base', label: '기지국', cx: 190, cy: 140 },
+  { id: 'nation', label: '운영국', cx: 320, cy: 140 },
+  { id: 'server', label: '관제서버', cx: 460, cy: 140 },
 ]
 
-const links = [
+const groundLinks: DiagramLink[] = [
+  { from: 'ship', to: 'base', steps: [1, 2] },
+  { from: 'base', to: 'nation', steps: [2, 3] },
+  { from: 'nation', to: 'server', steps: [3, 4] },
+]
+
+const satelliteNodes: DiagramNode[] = [
+  { id: 'ship', label: '선박', cx: 60, cy: 140 },
+  { id: 'satellite', label: '위성', cx: 190, cy: 60 },
+  { id: 'gateway', label: '지상국', cx: 320, cy: 140 },
+  { id: 'server', label: '관제서버', cx: 460, cy: 140 },
+]
+
+const satelliteLinks: DiagramLink[] = [
   { from: 'ship', to: 'satellite', steps: [1, 2] },
   { from: 'satellite', to: 'gateway', steps: [2, 3] },
   { from: 'gateway', to: 'server', steps: [3, 4] },
 ]
 
-function getNode(id: string) {
+function getNode(nodes: DiagramNode[], id: string) {
   return nodes.find((n) => n.id === id)!
 }
 
 export default function DataJourney() {
   const [activeStep, setActiveStep] = useState(1)
   const [activePath, setActivePath] = useState<JourneyPath['id']>('vhf')
-  const step = journeySteps.find((s) => s.id === activeStep)!
   const path = journeyPaths.find((p) => p.id === activePath)!
+  const isSatellite = activePath === 'satellite'
+  const nodes = isSatellite ? satelliteNodes : groundNodes
+  const links = isSatellite ? satelliteLinks : groundLinks
 
-  const isLinkActive = (steps: number[]) => steps.includes(activeStep)
+  const baseStep = journeySteps.find((s) => s.id === activeStep)!
+  const override = journeyPathStepOverrides[activePath][activeStep]
+  const step = { ...baseStep, ...override }
+
+  const isLinkActive = (linkSteps: number[]) => linkSteps.includes(activeStep)
 
   const isNodeActive = (nodeId: string) => {
     if (activeStep === 1 && nodeId === 'ship') return true
-    if (activeStep === 2 && nodeId === 'satellite') return true
-    if (activeStep === 3 && nodeId === 'gateway') return true
+    if (isSatellite) {
+      if (activeStep === 2 && nodeId === 'satellite') return true
+      if (activeStep === 3 && nodeId === 'gateway') return true
+    } else {
+      if (activeStep === 2 && nodeId === 'base') return true
+      if (activeStep === 3 && nodeId === 'nation') return true
+    }
     if (activeStep === 4 && nodeId === 'server') return true
     return false
   }
@@ -54,7 +81,7 @@ export default function DataJourney() {
             데이터 수집 과정
           </h2>
           <p className="section__desc">
-            위치 데이터는 근거리·원거리·위성 세 경로 중 하나(또는 복수)로 관제 센터에 도달합니다.
+            근거리·원거리는 기지국을 거쳐 운영국으로 모이고, 위성망만 인공위성을 경유합니다.
           </p>
         </header>
 
@@ -85,17 +112,17 @@ export default function DataJourney() {
               className={`journey-step-btn ${activeStep === s.id ? 'journey-step-btn--active' : ''}`}
               onClick={() => setActiveStep(s.id)}
             >
-              {s.id}단계: {s.title}
+              {s.id}단계: {journeyPathStepOverrides[activePath][s.id]?.title ?? s.title}
             </button>
           ))}
         </div>
 
         <div className="journey-layout">
           <div className="journey-diagram" aria-hidden="true">
-            <svg className="journey-diagram__svg" viewBox="0 0 540 200">
+            <svg className="journey-diagram__svg" viewBox="0 0 520 200">
               {links.map((link) => {
-                const from = getNode(link.from)
-                const to = getNode(link.to)
+                const from = getNode(nodes, link.from)
+                const to = getNode(nodes, link.to)
                 return (
                   <line
                     key={`${link.from}-${link.to}`}
