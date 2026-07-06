@@ -814,6 +814,469 @@ p {
   background: #ff6b6b10;
 }
 
+.surveillance-layer--longrange {
+  color: #c9a0ff;
+  border-color: #c9a0ff40;
+  background: #c9a0ff10;
+}
+
+.surveillance-layer--passive {
+  color: #ffb347;
+  border-color: #ffb34740;
+  background: #ffb34710;
+}
+
+/* Regulatory Framework */
+.pillar-diagram {
+  margin-bottom: 2rem;
+}
+
+.pillar-diagram__svg {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  display: block;
+}
+
+.pillar-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .pillar-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.pillar-card__title {
+  color: var(--accent-cyan);
+  margin-bottom: 0.5rem;
+}
+
+.pillar-card__list {
+  list-style: none;
+}
+
+.pillar-card__list li {
+  position: relative;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+.pillar-card__list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--accent-cyan);
+}
+
+.subsection-title {
+  font-size: var(--text-2xl);
+  margin: 3rem 0 0.75rem;
+}
+
+.subsection-desc {
+  margin-bottom: 1.5rem;
+}
+
+/* Accordion */
+.accordion {
+  margin-bottom: 3rem;
+}
+
+.accordion__item {
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+
+.accordion__trigger {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  font-family: inherit;
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.3s ease;
+}
+
+.accordion__trigger:hover,
+.accordion__trigger--open {
+  background: #00e5ff10;
+}
+
+.accordion__icon {
+  color: var(--accent-cyan);
+  font-size: 1.25rem;
+}
+
+.accordion__panel {
+  padding: 0 1.25rem 1.25rem;
+  background: var(--bg-card);
+}
+
+/* Chips */
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  display: inline-block;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 20px;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  background: var(--bg-deep);
+}
+
+.chip--cyan {
+  color: var(--accent-cyan);
+  border-color: #00e5ff40;
+  background: #00e5ff10;
+}
+
+.chip--green {
+  color: var(--accent-green);
+  border-color: #00ff8840;
+  background: #00ff8810;
+}
+
+/* Legal status */
+.legal-status-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .legal-status-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.legal-status-card__name {
+  color: var(--accent-cyan);
+  margin-bottom: 0.5rem;
+}
+
+.legal-status-card__analogy {
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: var(--accent-green);
+  margin-bottom: 0.75rem;
+}
+
+.role-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.role-list dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  margin-bottom: 0.25rem;
+}
+
+.role-list dd {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* Matrix table */
+.matrix-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.matrix-table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+  margin-bottom: 2rem;
+}
+
+.matrix-table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.matrix-table th,
+.matrix-table td {
+  padding: 0.875rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+  vertical-align: top;
+}
+
+.matrix-table th {
+  background: var(--bg-card);
+  color: var(--accent-cyan);
+  font-weight: 600;
+}
+
+.matrix-table td {
+  color: var(--text-secondary);
+}
+
+.matrix-table__row--active {
+  background: #00e5ff08;
+}
+
+/* Tech network */
+.tech-tier-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .tech-tier-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.tech-tier-card {
+  text-align: left;
+  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-card);
+  font-family: inherit;
+  color: inherit;
+  width: 100%;
+}
+
+.tech-tier-card--active {
+  border-color: var(--accent-cyan);
+  box-shadow: var(--glow-cyan);
+}
+
+.tech-tier-card__badge {
+  display: inline-block;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 20px;
+  background: #00e5ff15;
+  color: var(--accent-cyan);
+  margin-bottom: 0.75rem;
+}
+
+.tech-tier-card__title {
+  margin-bottom: 0.75rem;
+}
+
+.tech-tier-card__analogy {
+  font-size: var(--text-sm);
+  font-style: italic;
+  color: var(--accent-green);
+  margin-top: 0.75rem;
+}
+
+.tech-tier-detail {
+  margin-bottom: 2rem;
+}
+
+.distance-scale {
+  margin-top: 1rem;
+}
+
+.distance-scale__svg {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  display: block;
+}
+
+.distance-scale__dot--active {
+  filter: drop-shadow(0 0 6px var(--accent-cyan));
+}
+
+/* Policy classification */
+.policy-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .policy-layout {
+    grid-template-columns: 1.2fr 1fr;
+    align-items: start;
+  }
+}
+
+.policy-table-wrap {
+  overflow-x: auto;
+  border-radius: 12px;
+  border: 1px solid var(--border-subtle);
+}
+
+.policy-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.policy-table th,
+.policy-table td {
+  padding: 0.875rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.policy-table th {
+  background: var(--bg-card);
+  color: var(--accent-cyan);
+}
+
+.policy-table__row {
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.policy-table__row:hover,
+.policy-table__row--active {
+  background: #00e5ff08;
+}
+
+.policy-badge {
+  display: inline-block;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.policy-badge--public {
+  color: var(--accent-cyan);
+  border: 1px solid #00e5ff40;
+  background: #00e5ff10;
+}
+
+.policy-badge--private {
+  color: var(--accent-green);
+  border: 1px solid #00ff8840;
+  background: #00ff8810;
+}
+
+.policy-badge--mandatory {
+  color: #ff6b6b;
+  border: 1px solid #ff6b6b40;
+  background: #ff6b6b10;
+}
+
+.policy-detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.policy-detail-list dt {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+  margin-bottom: 0.25rem;
+}
+
+.policy-detail-list dd {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.multi-class-example {
+  border-left: 3px solid var(--accent-green);
+}
+
+/* Equipment filter & grid */
+.equipment-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.equipment-grid--wide {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .equipment-grid--wide {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
+  .equipment-grid--wide {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.flip-card {
+  height: 340px;
+}
+
+.regulatory-grid--wide {
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .regulatory-grid--wide {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.journey-path-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.journey-path-desc {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.dark-vessel-intro {
+  border-left: 3px solid #ff6b6b;
+}
+
 /* Footer */
 .footer {
   padding: 3rem 0;

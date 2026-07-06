@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 
-import { journeySteps } from '../data/content'
+import { journeySteps, journeyPaths } from '../data/content'
+import type { JourneyPath } from '../data/content'
 
 const nodes = [
   { id: 'ship', label: '선박', cx: 60, cy: 140 },
-  { id: 'satellite', label: '위성', cx: 200, cy: 60 },
+  { id: 'satellite', label: '위성/매체', cx: 200, cy: 60 },
   { id: 'gateway', label: '지상국', cx: 340, cy: 140 },
   { id: 'server', label: '관제 서버', cx: 480, cy: 140 },
 ]
@@ -22,7 +23,9 @@ function getNode(id: string) {
 
 export default function DataJourney() {
   const [activeStep, setActiveStep] = useState(1)
+  const [activePath, setActivePath] = useState<JourneyPath['id']>('vhf')
   const step = journeySteps.find((s) => s.id === activeStep)!
+  const path = journeyPaths.find((p) => p.id === activePath)!
 
   const isLinkActive = (steps: number[]) => steps.includes(activeStep)
 
@@ -51,9 +54,26 @@ export default function DataJourney() {
             데이터 수집 과정
           </h2>
           <p className="section__desc">
-            데이터는 어떤 여정을 거쳐 관제 센터에 도달할까요? 각 단계를 클릭해 신호 흐름을 따라가 보세요.
+            위치 데이터는 근거리·원거리·위성 세 경로 중 하나(또는 복수)로 관제 센터에 도달합니다.
           </p>
         </header>
+
+        <div className="journey-path-tabs" role="tablist" aria-label="전송 경로">
+          {journeyPaths.map((p) => (
+            <button
+              key={p.id}
+              type="button"
+              role="tab"
+              aria-selected={activePath === p.id}
+              className={`journey-step-btn ${activePath === p.id ? 'journey-step-btn--active' : ''}`}
+              onClick={() => setActivePath(p.id)}
+            >
+              {p.label}
+            </button>
+          ))}
+        </div>
+
+        <p className="caption journey-path-desc">{path.description}</p>
 
         <div className="journey-steps" role="tablist" aria-label="데이터 수집 단계">
           {journeySteps.map((s) => (
@@ -103,7 +123,7 @@ export default function DataJourney() {
           </div>
 
           <motion.div
-            key={activeStep}
+            key={`${activeStep}-${activePath}`}
             className="card journey-panel"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}

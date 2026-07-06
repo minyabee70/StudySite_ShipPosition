@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 
 import {
   darkVesselTimeline,
+  darkVesselIntro,
   caseStudies,
   regulatorySystems,
   surveillanceConclusion,
@@ -35,9 +36,13 @@ export default function DarkVessel() {
             숨은 배를 찾아라 (Dark Vessel)
           </h2>
           <p className="section__desc">
-            AIS를 강제로 끈 불법 선박은 어떻게 찾을까요? 스크롤하며 다중 센서 탐지 과정을 따라가 보세요.
+            AIS·VMS·LRIT·V-Pass 등 의무 장비를 끄는 것은 불법입니다. 다중 센서로 숨은 배를 탐지하는 과정을 따라가 보세요.
           </p>
         </header>
+
+        <div className="card dark-vessel-intro" style={{ marginBottom: '2.5rem' }}>
+          <p>{darkVesselIntro}</p>
+        </div>
 
         <div className="timeline" style={{ position: 'relative' }}>
           <motion.div
@@ -82,11 +87,11 @@ export default function DarkVessel() {
           <span className="section__label">Section 5</span>
           <h2 className="section__title">국가별 의무 장비 제도</h2>
           <p className="section__desc">
-            VMS와 SSAS는 선박이 원하지 않아도 국가가 위치를 수집할 수 있는 구조입니다.
+            LRIT·VMS·SSAS·V-Pass는 선박이 원하지 않아도 국가가 위치를 수집할 수 있는 강제 관제 체계입니다.
           </p>
         </header>
 
-        <div className="regulatory-grid">
+        <div className="regulatory-grid regulatory-grid--wide">
           {regulatorySystems.map((sys, index) => (
             <motion.article
               key={sys.id}
@@ -128,16 +133,23 @@ export default function DarkVessel() {
           </svg>
 
           <div className="surveillance-layers">
-            {surveillanceConclusion.layers.map((layer) => (
-              <span
-                key={layer.label}
-                className={`surveillance-layer surveillance-layer--${
-                  layer.type === '공개' ? 'public' : layer.type === '비공개' ? 'private' : 'mandatory'
-                }`}
-              >
-                {layer.label} ({layer.type})
-              </span>
-            ))}
+            {surveillanceConclusion.layers.map((layer) => {
+              const typeClass =
+                layer.type === '공개' ? 'public'
+                : layer.type === '비공개' ? 'private'
+                : layer.type === '강제' ? 'mandatory'
+                : layer.type === '원거리' ? 'longrange'
+                : 'passive'
+              return (
+                <span
+                  key={layer.label}
+                  className={`surveillance-layer surveillance-layer--${typeClass}`}
+                  title={layer.description}
+                >
+                  {layer.label} ({layer.type})
+                </span>
+              )
+            })}
           </div>
 
           <p style={{ maxWidth: '600px', margin: '0 auto' }}>{surveillanceConclusion.summary}</p>

@@ -21,8 +21,8 @@ function createParticles() {
 export default function Intro() {
   const particles = useMemo(() => createParticles(), [])
 
-  const scrollToEquipment = () => {
-    document.getElementById('equipment')?.scrollIntoView({ behavior: 'smooth' })
+  const scrollToRegulatory = () => {
+    document.getElementById('regulatory')?.scrollIntoView({ behavior: 'smooth' })
   }
 
   return (
@@ -77,18 +77,28 @@ export default function Intro() {
 
         <motion.p
           className="caption"
+          style={{ marginBottom: '1rem', color: 'var(--accent-green)' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          {introContent.context}
+        </motion.p>
+
+        <motion.p
+          className="caption"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.7 }}
         >
-          스크롤하여 선박 위치 수집의 원리를 탐험하세요
+          스크롤하여 국가 관제 체계의 원리를 탐험하세요
         </motion.p>
       </div>
 
       <button
         type="button"
         className="intro__scroll"
-        onClick={scrollToEquipment}
+        onClick={scrollToRegulatory}
         aria-label="다음 섹션으로 스크롤"
       >
         <span>탐험 시작</span>
