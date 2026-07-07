@@ -71,14 +71,14 @@ export default function CompareToggle() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                <text x="350" y="30" textAnchor="middle" fill="#8ba3c7" fontSize="14">
+                <text x="350" y="30" textAnchor="middle" fill="#8ba3c7" className="diagram-text diagram-text--xl">
                   VHF 전파가 사방으로 퍼져나갑니다
                 </text>
 
                 {/* Ship center */}
                 <g transform="translate(350, 200)">
                   <circle r="20" fill="#0a1628" stroke="#00e5ff" strokeWidth="2" />
-                  <text y="5" textAnchor="middle" fill="#00e5ff" fontSize="10">선박</text>
+                  <text y="5" textAnchor="middle" fill="#00e5ff" className="diagram-text diagram-text--sm">선박</text>
                   <circle className="pulse-ring" cx="0" cy="0" r="20" />
                   <circle className="pulse-ring" cx="0" cy="0" r="20" />
                   <circle className="pulse-ring" cx="0" cy="0" r="20" />
@@ -87,19 +87,19 @@ export default function CompareToggle() {
                 {/* Receivers - all bright */}
                 <g className="receiver">
                   <circle cx="120" cy="100" r="16" fill="#0a1628" stroke="#00ff88" strokeWidth="2" />
-                  <text x="120" y="104" textAnchor="middle" fill="#00ff88" fontSize="9">타 선박</text>
+                  <text x="120" y="104" textAnchor="middle" fill="#00ff88" className="diagram-text diagram-text--xs">타 선박</text>
                 </g>
                 <g className="receiver">
                   <circle cx="580" cy="100" r="16" fill="#0a1628" stroke="#00ff88" strokeWidth="2" />
-                  <text x="580" y="104" textAnchor="middle" fill="#00ff88" fontSize="9">위성</text>
+                  <text x="580" y="104" textAnchor="middle" fill="#00ff88" className="diagram-text diagram-text--xs">위성</text>
                 </g>
                 <g className="receiver">
                   <circle cx="120" cy="300" r="16" fill="#0a1628" stroke="#00ff88" strokeWidth="2" />
-                  <text x="120" y="304" textAnchor="middle" fill="#00ff88" fontSize="9">지상국</text>
+                  <text x="120" y="304" textAnchor="middle" fill="#00ff88" className="diagram-text diagram-text--xs">지상국</text>
                 </g>
                 <g className="receiver">
                   <circle cx="580" cy="300" r="16" fill="#0a1628" stroke="#00ff88" strokeWidth="2" />
-                  <text x="580" y="304" textAnchor="middle" fill="#00ff88" fontSize="9">해안국</text>
+                  <text x="580" y="304" textAnchor="middle" fill="#00ff88" className="diagram-text diagram-text--xs">해안국</text>
                 </g>
 
                 <line x1="350" y1="200" x2="120" y2="100" stroke="#00e5ff40" strokeWidth="1" strokeDasharray="4 4" />
@@ -117,34 +117,34 @@ export default function CompareToggle() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                <text x="350" y="30" textAnchor="middle" fill="#8ba3c7" fontSize="14">
+                <text x="350" y="30" textAnchor="middle" fill="#8ba3c7" className="diagram-text diagram-text--xl">
                   암호화된 점대점 채널만 활성화됩니다
                 </text>
 
                 {/* Dim receivers */}
                 <g className="receiver receiver--dim">
                   <circle cx="120" cy="100" r="16" fill="#0a1628" stroke="#5a7090" strokeWidth="1" />
-                  <text x="120" y="104" textAnchor="middle" fill="#5a7090" fontSize="9">타 선박</text>
+                  <text x="120" y="104" textAnchor="middle" fill="#5a7090" className="diagram-text diagram-text--xs">타 선박</text>
                 </g>
                 <g className="receiver receiver--dim">
                   <circle cx="120" cy="300" r="16" fill="#0a1628" stroke="#5a7090" strokeWidth="1" />
-                  <text x="120" y="304" textAnchor="middle" fill="#5a7090" fontSize="9">지상국</text>
+                  <text x="120" y="304" textAnchor="middle" fill="#5a7090" className="diagram-text diagram-text--xs">지상국</text>
                 </g>
                 <g className="receiver receiver--dim">
                   <circle cx="580" cy="300" r="16" fill="#0a1628" stroke="#5a7090" strokeWidth="1" />
-                  <text x="580" y="304" textAnchor="middle" fill="#5a7090" fontSize="9">해안국</text>
+                  <text x="580" y="304" textAnchor="middle" fill="#5a7090" className="diagram-text diagram-text--xs">해안국</text>
                 </g>
 
                 {/* Active satellite */}
                 <g className="receiver">
                   <circle cx="580" cy="100" r="20" fill="#0a1628" stroke="#00ff88" strokeWidth="2" />
-                  <text x="580" y="104" textAnchor="middle" fill="#00ff88" fontSize="9">위성</text>
+                  <text x="580" y="104" textAnchor="middle" fill="#00ff88" className="diagram-text diagram-text--xs">위성</text>
                 </g>
 
                 {/* Ship */}
                 <g transform="translate(350, 200)">
                   <circle r="20" fill="#0a1628" stroke="#00e5ff" strokeWidth="2" />
-                  <text y="5" textAnchor="middle" fill="#00e5ff" fontSize="10">선박</text>
+                  <text y="5" textAnchor="middle" fill="#00e5ff" className="diagram-text diagram-text--sm">선박</text>
                 </g>
 
                 {/* Encrypted line */}
@@ -159,7 +159,7 @@ export default function CompareToggle() {
                 {/* Gateway */}
                 <g className="receiver">
                   <rect x="520" y="320" width="80" height="40" rx="6" fill="#0a1628" stroke="#00ff88" strokeWidth="2" />
-                  <text x="560" y="345" textAnchor="middle" fill="#00ff88" fontSize="9">관제 센터</text>
+                  <text x="560" y="345" textAnchor="middle" fill="#00ff88" className="diagram-text diagram-text--xs">관제 센터</text>
                 </g>
                 <line
                   className="signal-line"
@@ -180,31 +180,31 @@ export default function CompareToggle() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.4 }}
               >
-                <text x="350" y="30" textAnchor="middle" fill="#8ba3c7" fontSize="14">
+                <text x="350" y="30" textAnchor="middle" fill="#8ba3c7" className="diagram-text diagram-text--xl">
                   국가 지정 서버로만 전송 — 선박이 끌 수 없음
                 </text>
 
                 <g className="receiver receiver--dim">
                   <circle cx="120" cy="100" r="16" fill="#0a1628" stroke="#5a7090" strokeWidth="1" />
-                  <text x="120" y="104" textAnchor="middle" fill="#5a7090" fontSize="9">타 선박</text>
+                  <text x="120" y="104" textAnchor="middle" fill="#5a7090" className="diagram-text diagram-text--xs">타 선박</text>
                 </g>
 
                 <g transform="translate(350, 200)">
                   <circle r="20" fill="#0a1628" stroke="#ff6b6b" strokeWidth="2" />
-                  <text y="5" textAnchor="middle" fill="#ff6b6b" fontSize="10">선박</text>
+                  <text y="5" textAnchor="middle" fill="#ff6b6b" className="diagram-text diagram-text--sm">선박</text>
                 </g>
 
                 <g className="receiver">
                   <circle cx="580" cy="100" r="20" fill="#0a1628" stroke="#ff6b6b" strokeWidth="2" />
-                  <text x="580" y="104" textAnchor="middle" fill="#ff6b6b" fontSize="9">위성</text>
+                  <text x="580" y="104" textAnchor="middle" fill="#ff6b6b" className="diagram-text diagram-text--xs">위성</text>
                 </g>
 
                 <line className="signal-line" x1="370" y1="190" x2="560" y2="110" style={{ stroke: '#ff6b6b' }} />
 
                 <g className="receiver">
                   <rect x="480" y="300" width="120" height="50" rx="6" fill="#0a1628" stroke="#ff6b6b" strokeWidth="2" />
-                  <text x="540" y="322" textAnchor="middle" fill="#ff6b6b" fontSize="9">정부 관제 서버</text>
-                  <text x="540" y="338" textAnchor="middle" fill="#5a7090" fontSize="8">VMS·LRIT·SSAS·V-Pass</text>
+                  <text x="540" y="322" textAnchor="middle" fill="#ff6b6b" className="diagram-text diagram-text--xs">정부 관제 서버</text>
+                  <text x="540" y="338" textAnchor="middle" fill="#5a7090" className="diagram-text diagram-text--2xs">VMS·LRIT·SSAS·V-Pass</text>
                 </g>
 
                 <line className="signal-line" x1="580" y1="120" x2="540" y2="300" style={{ stroke: '#ff6b6b80' }} />

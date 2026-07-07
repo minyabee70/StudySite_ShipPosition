@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { motion } from 'framer-motion'
 
 import { introContent } from '../data/content'
+import { useSimulation } from '../context/SimulationContext'
 
 const PARTICLE_COUNT = 40
 
@@ -20,6 +21,7 @@ function createParticles() {
 
 export default function Intro() {
   const particles = useMemo(() => createParticles(), [])
+  const { speed } = useSimulation()
 
   const scrollToRegulatory = () => {
     document.getElementById('regulatory')?.scrollIntoView({ behavior: 'smooth' })
@@ -39,7 +41,7 @@ export default function Intro() {
               height: p.size,
               ['--dx' as string]: p.dx,
               ['--dy' as string]: p.dy,
-              animationDuration: p.duration,
+              animationDuration: `${parseFloat(p.duration) / speed}s`,
               animationDelay: p.delay,
             }}
           />

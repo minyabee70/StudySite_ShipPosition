@@ -1,7 +1,17 @@
 import { useFontSize } from '../hooks/useFontSize'
+import { useSimulation } from '../context/SimulationContext'
 
 export default function SiteBottomBar() {
   const { percent, increase, decrease, reset, canIncrease, canDecrease } = useFontSize()
+  const {
+    playing,
+    speedLabel,
+    togglePlay,
+    decreaseSpeed,
+    increaseSpeed,
+    canDecreaseSpeed,
+    canIncreaseSpeed,
+  } = useSimulation()
 
   return (
     <aside className="site-bottom-bar" aria-label="사이트 설정">
@@ -34,6 +44,38 @@ export default function SiteBottomBar() {
             aria-label="글자 크기 키우기"
           >
             A+
+          </button>
+        </div>
+
+        <div className="site-bottom-bar__sim" role="group" aria-label="시뮬레이션 제어">
+          <button
+            type="button"
+            className="site-bottom-bar__play"
+            onClick={togglePlay}
+            aria-label={playing ? '시뮬레이션 일시정지' : '시뮬레이션 재생'}
+            title={playing ? '일시정지' : '재생'}
+          >
+            {playing ? '||' : '|>'}
+          </button>
+          <span className="site-bottom-bar__label">속도</span>
+          <button
+            type="button"
+            className="site-bottom-bar__btn"
+            onClick={decreaseSpeed}
+            disabled={!canDecreaseSpeed}
+            aria-label="시뮬레이션 속도 줄이기"
+          >
+            −
+          </button>
+          <span className="site-bottom-bar__speed">{speedLabel}</span>
+          <button
+            type="button"
+            className="site-bottom-bar__btn"
+            onClick={increaseSpeed}
+            disabled={!canIncreaseSpeed}
+            aria-label="시뮬레이션 속도 높이기"
+          >
+            +
           </button>
         </div>
 

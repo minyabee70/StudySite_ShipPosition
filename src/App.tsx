@@ -8,10 +8,11 @@ import DataJourney from './components/DataJourney'
 import DarkVessel from './components/DarkVessel'
 import Footer from './components/Footer'
 import SiteBottomBar from './components/SiteBottomBar'
+import { SimulationProvider } from './context/SimulationContext'
 
 export default function App() {
   return (
-    <>
+    <SimulationProvider>
       <main className="site-main">
         <Intro />
         <RegulatoryFramework />
@@ -24,6 +25,6 @@ export default function App() {
         <Footer />
       </main>
       <SiteBottomBar />
-    </>
+    </SimulationProvider>
   )
 }

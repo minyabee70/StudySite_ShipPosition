@@ -96,7 +96,7 @@ export default function TechNetworkClassification() {
                     strokeWidth="2"
                     className={isActive ? 'distance-scale__dot--active' : ''}
                   />
-                  <text x={x} y="68" textAnchor="middle" fill={isActive ? '#00e5ff' : '#5a7090'} fontSize="10">
+                  <text x={x} y="68" textAnchor="middle" fill={isActive ? '#00e5ff' : '#5a7090'} className="diagram-text diagram-text--sm">
                     {marker.label}
                   </text>
                 </g>

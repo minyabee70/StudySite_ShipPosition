@@ -123,13 +123,13 @@ export default function DarkVessel() {
 
           <svg className="surveillance-diagram__svg" viewBox="0 0 400 200" aria-hidden="true">
             <circle cx="160" cy="100" r="70" fill="#00e5ff15" stroke="#00e5ff" strokeWidth="2" opacity="0.8" />
-            <text x="160" y="105" textAnchor="middle" fill="#00e5ff" fontSize="12" fontWeight="600">AIS</text>
+            <text x="160" y="105" textAnchor="middle" fill="#00e5ff" className="diagram-text diagram-text--md diagram-text--bold">AIS</text>
 
             <circle cx="240" cy="100" r="70" fill="#00ff8815" stroke="#00ff88" strokeWidth="2" opacity="0.8" />
-            <text x="240" y="105" textAnchor="middle" fill="#00ff88" fontSize="12" fontWeight="600">위성</text>
+            <text x="240" y="105" textAnchor="middle" fill="#00ff88" className="diagram-text diagram-text--md diagram-text--bold">위성</text>
 
             <circle cx="200" cy="130" r="70" fill="#ff6b6b15" stroke="#ff6b6b" strokeWidth="2" opacity="0.8" />
-            <text x="200" y="135" textAnchor="middle" fill="#ff6b6b" fontSize="11" fontWeight="600">VMS/SSAS</text>
+            <text x="200" y="135" textAnchor="middle" fill="#ff6b6b" className="diagram-text diagram-text--base diagram-text--bold">VMS/SSAS</text>
           </svg>
 
           <div className="surveillance-layers">

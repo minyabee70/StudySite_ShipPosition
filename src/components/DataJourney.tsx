@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 
 import { journeySteps, journeyPaths, journeyPathStepOverrides } from '../data/content'
 import type { JourneyPath } from '../data/content'
+import { useSimulation } from '../context/SimulationContext'
 
 type DiagramNode = { id: string; label: string; cx: number; cy: number }
 type DiagramLink = { from: string; to: string; steps: number[] }
@@ -40,6 +41,7 @@ function getNode(nodes: DiagramNode[], id: string) {
 export default function DataJourney() {
   const [activeStep, setActiveStep] = useState(1)
   const [activePath, setActivePath] = useState<JourneyPath['id']>('vhf')
+  const { speed } = useSimulation()
   const path = journeyPaths.find((p) => p.id === activePath)!
   const isSatellite = activePath === 'satellite'
   const nodes = isSatellite ? satelliteNodes : groundNodes
@@ -165,9 +167,9 @@ export default function DataJourney() {
 
             {activeStep === 4 && (
               <div className="mini-map" aria-label="관제 화면 시뮬레이션">
-                <span className="mini-map__dot" style={{ left: '20%', top: '30%', animationDuration: '8s' }} />
-                <span className="mini-map__dot" style={{ left: '50%', top: '50%', animationDuration: '12s', animationDelay: '2s' }} />
-                <span className="mini-map__dot" style={{ left: '70%', top: '25%', animationDuration: '10s', animationDelay: '4s' }} />
+                <span className="mini-map__dot" style={{ left: '20%', top: '30%', animationDuration: `${8 / speed}s` }} />
+                <span className="mini-map__dot" style={{ left: '50%', top: '50%', animationDuration: `${12 / speed}s`, animationDelay: `${2 / speed}s` }} />
+                <span className="mini-map__dot" style={{ left: '70%', top: '25%', animationDuration: `${10 / speed}s`, animationDelay: `${4 / speed}s` }} />
                 <span className="mini-map__label">실시간 관제 대시보드 (시뮬레이션)</span>
               </div>
             )}

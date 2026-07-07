@@ -45,20 +45,20 @@ export default function RegulatoryFramework() {
         <div className="pillar-diagram" aria-hidden="true">
           <svg className="pillar-diagram__svg" viewBox="0 0 700 220">
             <rect x="80" y="20" width="220" height="120" rx="8" fill="#0a1628" stroke="#00e5ff" strokeWidth="1.5" />
-            <text x="190" y="55" textAnchor="middle" fill="#00e5ff" fontSize="13" fontWeight="600">법적 근거</text>
-            <text x="190" y="75" textAnchor="middle" fill="#8ba3c7" fontSize="10">관제 대상</text>
-            <text x="190" y="95" textAnchor="middle" fill="#5a7090" fontSize="9">선박종류·법적지위·국제/국가 요구</text>
+            <text x="190" y="55" textAnchor="middle" fill="#00e5ff" className="diagram-text diagram-text--lg diagram-text--bold">법적 근거</text>
+            <text x="190" y="75" textAnchor="middle" fill="#8ba3c7" className="diagram-text diagram-text--sm">관제 대상</text>
+            <text x="190" y="95" textAnchor="middle" fill="#5a7090" className="diagram-text diagram-text--xs">선박종류·법적지위·국제/국가 요구</text>
 
             <rect x="400" y="20" width="220" height="120" rx="8" fill="#0a1628" stroke="#00ff88" strokeWidth="1.5" />
-            <text x="510" y="55" textAnchor="middle" fill="#00ff88" fontSize="13" fontWeight="600">기술적 구현</text>
-            <text x="510" y="75" textAnchor="middle" fill="#8ba3c7" fontSize="10">전송 경로</text>
-            <text x="510" y="95" textAnchor="middle" fill="#5a7090" fontSize="9">기지국→운영국 / 위성→지상국</text>
+            <text x="510" y="55" textAnchor="middle" fill="#00ff88" className="diagram-text diagram-text--lg diagram-text--bold">기술적 구현</text>
+            <text x="510" y="75" textAnchor="middle" fill="#8ba3c7" className="diagram-text diagram-text--sm">전송 경로</text>
+            <text x="510" y="95" textAnchor="middle" fill="#5a7090" className="diagram-text diagram-text--xs">기지국→운영국 / 위성→지상국</text>
 
             <line x1="190" y1="140" x2="350" y2="185" stroke="#ffffff30" strokeWidth="1.5" />
             <line x1="510" y1="140" x2="350" y2="185" stroke="#ffffff30" strokeWidth="1.5" />
 
             <rect x="250" y="175" width="200" height="40" rx="8" fill="#00e5ff20" stroke="#00e5ff" strokeWidth="1.5" />
-            <text x="350" y="200" textAnchor="middle" fill="#00e5ff" fontSize="12" fontWeight="600">국가 관제 서버</text>
+            <text x="350" y="200" textAnchor="middle" fill="#00e5ff" className="diagram-text diagram-text--md diagram-text--bold">국가 관제 서버</text>
           </svg>
         </div>
 
